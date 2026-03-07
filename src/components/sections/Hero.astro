@@ -1,0 +1,161 @@
+---
+import Button from '../ui/Button.astro';
+import Chip from '../ui/Chip.astro';
+
+const pills = [
+  'Java · Spring Boot',
+  'Microservicios',
+  'Kotlin · Node.js',
+  'Kubernetes · GCP',
+  'Event-Driven',
+];
+
+const stats = [
+  { num: '8',   label: 'Años de experiencia' },
+  { num: '6',   label: 'Empresas & proyectos' },
+  { num: '1M+', label: 'Usuarios en Roostfy' },
+  { num: '5+',  label: 'Sectores distintos' },
+];
+---
+
+<section id="hero">
+  <div class="hero-inner">
+    <p class="hero-label">Backend Engineer · Madrid, ES · 8 años de experiencia</p>
+
+    <h1 class="hero-name">
+      Víctor<br /><em>Latorre</em>
+    </h1>
+
+    <p class="hero-tagline">
+      Especialista en arquitecturas de microservicios, sistemas distribuidos y modernización
+      de plataformas críticas en el ecosistema Java/Spring.
+    </p>
+
+    <div class="hero-pills">
+      {pills.map((p) => <Chip label={p} />)}
+    </div>
+
+    <div class="hero-cta">
+      <Button variant="solid" href="#experience" label="Ver trayectoria" />
+      <Button variant="outline" href="#contact" label="Hablemos" />
+    </div>
+
+    <div class="hero-stat-row">
+      {stats.map((s) => (
+        <div>
+          <div class="hero-stat-num">{s.num}</div>
+          <div class="hero-stat-label">{s.label}</div>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <div class="hero-scroll">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<style>
+  #hero {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    padding: 8rem 4rem 5rem;
+    position: relative;
+  }
+
+  .hero-inner {
+    max-width: 900px;
+    width: 100%;
+  }
+
+  .hero-label {
+    font-family: 'DM Mono', monospace;
+    font-size: .75rem;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-name {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(3.2rem, 7.5vw, 6.5rem);
+    line-height: 1.03;
+    letter-spacing: -.02em;
+  }
+  .hero-name em {
+    font-style: italic;
+    color: var(--ink-soft);
+  }
+
+  .hero-tagline {
+    margin-top: 2rem;
+    font-size: 1.08rem;
+    color: var(--ink-soft);
+    max-width: 560px;
+  }
+
+  .hero-pills {
+    margin-top: 1.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: .5rem;
+  }
+
+  .hero-cta {
+    margin-top: 2.8rem;
+    display: flex;
+    gap: 1.2rem;
+    align-items: center;
+  }
+
+  .hero-stat-row {
+    display: flex;
+    gap: 3rem;
+    margin-top: 3.5rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--line);
+  }
+
+  .hero-stat-num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 2.2rem;
+    color: var(--ink);
+    line-height: 1;
+  }
+
+  .hero-stat-label {
+    font-family: 'DM Mono', monospace;
+    font-size: .65rem;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-top: .3rem;
+  }
+
+  .hero-scroll {
+    position: absolute;
+    bottom: 2.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: .5rem;
+  }
+
+  .hero-scroll span {
+    font-family: 'DM Mono', monospace;
+    font-size: .62rem;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+
+  @media (max-width: 768px) {
+    #hero { padding: 7rem 1.5rem 4rem; }
+    .hero-stat-row { gap: 2rem; flex-wrap: wrap; }
+  }
+</style>

@@ -1,43 +1,59 @@
-# Astro Starter Kit: Minimal
+# victorlh.com — Portfolio Personal
 
-```sh
-pnpm create astro@latest -- --template minimal
+Portfolio personal de Víctor Latorre Herreros, Backend Engineer. Construido con Astro, Tailwind CSS v3 y TypeScript.
+
+## Stack
+
+- **Astro 5.x** — Static site generation
+- **Tailwind CSS v3** — Utility-first styling con tokens de diseño personalizados
+- **TypeScript** — Strict mode
+- **Content Collections** — Experiencia laboral en Markdown
+- **Vercel** — Despliegue estático
+
+## Instalación
+
+```bash
+pnpm install
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## Desarrollo
 
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
+```bash
+pnpm dev
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+Abre `http://localhost:4321` en el navegador.
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+## Build
 
-Any static assets, like images, can be placed in the `public/` directory.
+```bash
+pnpm build
+```
 
-## 🧞 Commands
+La salida se genera en `./dist/`.
 
-All commands are run from the root of the project, from a terminal:
+## Preview local
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `pnpm install`             | Installs dependencies                            |
-| `pnpm dev`             | Starts local dev server at `localhost:4321`      |
-| `pnpm build`           | Build your production site to `./dist/`          |
-| `pnpm preview`         | Preview your build locally, before deploying     |
-| `pnpm astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `pnpm astro -- --help` | Get help using the Astro CLI                     |
+```bash
+pnpm preview
+```
 
-## 👀 Want to learn more?
+## Estructura
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+```
+src/
+├── components/
+│   ├── layout/       # Header, Footer
+│   ├── sections/     # Hero, Experience, Stack
+│   └── ui/           # Button, Chip, Badge
+├── content/
+│   └── experience/   # Ficheros .md de experiencia laboral
+├── data/
+│   └── stack.ts      # Stack tecnológico tipado
+├── layouts/
+│   └── BaseLayout.astro
+├── pages/
+│   └── index.astro
+└── styles/
+    └── global.css
+```

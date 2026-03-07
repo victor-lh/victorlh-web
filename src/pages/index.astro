@@ -1,17 +1,322 @@
 ---
-
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/sections/Hero.astro';
+import Stack from '../components/sections/Stack.astro';
+import Experience from '../components/sections/Experience.astro';
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout
+  title="Víctor Latorre — Backend Engineer"
+  description="Backend Engineer especializado en microservicios, arquitecturas distribuidas y ecosistema Java/Spring. Madrid, España."
+>
+  <Hero />
+
+  <!-- About -->
+  <section id="about">
+    <div class="inner">
+      <div class="section-header">
+        <span class="section-num">01</span>
+        <h2 class="section-title">Sobre mí</h2>
+        <div class="section-line"></div>
+      </div>
+      <div class="about-grid">
+        <div class="about-text reveal">
+          <p>Soy desarrollador de software especializado en <strong>ingeniería de backend y diseño de arquitecturas escalables</strong>. Mi trayectoria se define por una mentalidad de aprendizaje continuo y una visión integral del ciclo de vida del software.</p>
+          <p>He consolidado una sólida experiencia en el ecosistema <strong>Java/Spring</strong>, con foco en microservicios, sistemas basados en eventos y migraciones de arquitecturas monolíticas a distribuidas en sectores como Fintech, Retail, Seguros y Sector Público.</p>
+          <p>Me distingo por un alto sentido de la responsabilidad, capacidad de colaboración en equipos multidisciplinares y un enfoque pragmático hacia la resolución de <strong>problemas técnicos complejos</strong>.</p>
+          <p>Mi proyección está orientada a liderar la innovación tecnológica en arquitecturas cloud y microservicios, aportando valor a través de la excelencia técnica en proyectos de alto impacto.</p>
+        </div>
+        <div class="about-meta reveal">
+          <div class="meta-item">
+            <div class="meta-label">Ubicación</div>
+            <div class="meta-value">Madrid, España</div>
+          </div>
+          <div class="meta-item">
+            <div class="meta-label">Especialidad</div>
+            <div class="meta-value">Backend · Microservicios · Cloud</div>
+          </div>
+          <div class="meta-item">
+            <div class="meta-label">Stack principal</div>
+            <div class="meta-value">Java 17 · Spring Boot · Kubernetes</div>
+          </div>
+          <div class="meta-item">
+            <div class="meta-label">Freelance</div>
+            <div class="meta-value">Abierto a proyectos · Consultar</div>
+          </div>
+          <div class="meta-item">
+            <div class="meta-label">Idiomas</div>
+            <div class="meta-value">Español nativo · English</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Stack />
+  <Experience />
+
+  <!-- Projects -->
+  <section id="projects">
+    <div class="inner">
+      <div class="section-header">
+        <span class="section-num">04</span>
+        <h2 class="section-title">Proyectos destacados</h2>
+        <div class="section-line"></div>
+      </div>
+      <div class="projects-grid">
+        <div class="project-card reveal">
+          <div class="project-num">001</div>
+          <div class="project-title">Roostfy</div>
+          <div class="project-highlight">▲ +1.000.000 descargas en Google Play</div>
+          <div class="project-desc">App Android desarrollada de cero hasta escala masiva. Backend Serverless en GCP con Node.js, tiempo real con WebRTC, sincronización multi-dispositivo, monetización con Ads e In-app purchases.</div>
+          <div class="project-stack">
+            <span class="tag">Kotlin</span><span class="tag">Android</span><span class="tag">Node.js</span>
+            <span class="tag">GCP Serverless</span><span class="tag">WebRTC</span><span class="tag">Firebase</span>
+          </div>
+        </div>
+        <div class="project-card reveal">
+          <div class="project-num">002</div>
+          <div class="project-title">E-commerce Leroy Merlin</div>
+          <div class="project-highlight">▲ Arquitectura Hexagonal + Event-Driven</div>
+          <div class="project-desc">Capa de microservicios para nueva plataforma de e-commerce retail. Integración de sistemas Legacy con infraestructura cloud mediante GCP Pub/Sub y despliegue en GKE.</div>
+          <div class="project-stack">
+            <span class="tag">Java 11</span><span class="tag">GCP</span><span class="tag">GKE</span>
+            <span class="tag">Pub/Sub</span><span class="tag">MongoDB</span><span class="tag">Hexagonal</span>
+          </div>
+        </div>
+        <div class="project-card reveal">
+          <div class="project-num">003</div>
+          <div class="project-title">Core Bancario Pecunpay</div>
+          <div class="project-highlight">▲ Fintech · Entidad de dinero electrónico</div>
+          <div class="project-desc">APIs públicas de alto rendimiento consumidas por apps móviles. Spring Security para protección financiera, Spring Cloud para orquestación y PostgreSQL para datos críticos de transacciones.</div>
+          <div class="project-stack">
+            <span class="tag">Spring Cloud</span><span class="tag">Spring Security</span>
+            <span class="tag">PostgreSQL</span><span class="tag">OpenShift</span><span class="tag">Docker</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact">
+    <div class="inner">
+      <div class="section-header" style="justify-content:center;">
+        <span class="section-num">05</span>
+        <h2 class="section-title contact-title">Contacto</h2>
+        <div class="section-line contact-line"></div>
+      </div>
+      <h3 class="contact-headline reveal">¿Tienes un proyecto <em>complejo</em>?</h3>
+      <p class="contact-sub reveal">Abierto a proyectos freelance de backend, consultoría de arquitectura y posiciones senior. Cuéntame qué necesitas construir.</p>
+      <div class="contact-links reveal">
+        <a href="mailto:victor@example.com" class="contact-link primary">Enviar email</a>
+        <a href="https://linkedin.com/in/victorlh" target="_blank" rel="noopener noreferrer" class="contact-link">LinkedIn</a>
+        <a href="https://github.com/victorlh" target="_blank" rel="noopener noreferrer" class="contact-link">GitHub</a>
+        <a href="#" class="contact-link">Descargar CV</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* Shared section styles */
+  section {
+    padding: 7rem 4rem;
+  }
+  .inner {
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 1.5rem;
+    margin-bottom: 4rem;
+  }
+  .section-num {
+    font-family: 'DM Mono', monospace;
+    font-size: .7rem;
+    color: var(--accent);
+    letter-spacing: .15em;
+  }
+  .section-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    letter-spacing: -.01em;
+  }
+  .section-line {
+    flex: 1;
+    height: 1px;
+    background: var(--line);
+  }
+
+  /* About */
+  #about { background: var(--white); }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: 5rem;
+    align-items: start;
+  }
+
+  .about-text p {
+    color: var(--ink-soft);
+    margin-bottom: 1.2rem;
+    font-size: .95rem;
+  }
+  .about-text p strong {
+    color: var(--ink);
+    font-weight: 500;
+  }
+
+  .about-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+  }
+
+  .meta-item {
+    padding: 1.3rem 1.5rem;
+    border: 1px solid var(--line);
+    transition: border-color .2s;
+  }
+  .meta-item:hover { border-color: var(--accent); }
+
+  .meta-label {
+    font-family: 'DM Mono', monospace;
+    font-size: .62rem;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: .3rem;
+  }
+  .meta-value { font-size: .9rem; }
+
+  /* Projects */
+  #projects { background: var(--bg); }
+
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+  }
+
+  .project-card {
+    background: var(--white);
+    border: 1px solid var(--line);
+    padding: 2.5rem;
+    transition: transform .3s, border-color .3s;
+  }
+  .project-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--accent);
+  }
+
+  .project-num {
+    font-family: 'DM Mono', monospace;
+    font-size: .62rem;
+    color: var(--line);
+    letter-spacing: .1em;
+    margin-bottom: 1.2rem;
+  }
+
+  .project-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.45rem;
+    margin-bottom: .6rem;
+  }
+
+  .project-highlight {
+    font-family: 'DM Mono', monospace;
+    font-size: .7rem;
+    letter-spacing: .06em;
+    color: var(--accent);
+    margin-bottom: 1rem;
+  }
+
+  .project-desc {
+    font-size: .86rem;
+    color: var(--ink-soft);
+    margin-bottom: 1.2rem;
+  }
+
+  .project-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .35rem;
+  }
+
+  .tag {
+    font-family: 'DM Mono', monospace;
+    font-size: .62rem;
+    letter-spacing: .06em;
+    padding: .28rem .65rem;
+    border: 1px solid var(--line);
+    color: var(--ink-soft);
+  }
+
+  /* Contact */
+  #contact {
+    background: var(--ink);
+    color: var(--bg);
+    text-align: center;
+  }
+  .contact-title { color: var(--bg); }
+  .contact-line  { background: #3a3530; }
+
+  .contact-headline {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(2rem, 5vw, 4rem);
+    max-width: 640px;
+    margin: 0 auto 1.2rem;
+    line-height: 1.1;
+  }
+  .contact-headline em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .contact-sub {
+    color: #8a837c;
+    max-width: 460px;
+    margin: 0 auto 3rem;
+    font-size: .92rem;
+  }
+
+  .contact-links {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .contact-link {
+    padding: .9rem 2.2rem;
+    border: 1px solid #3a3530;
+    color: var(--bg);
+    text-decoration: none;
+    font-size: .75rem;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    transition: border-color .2s, color .2s;
+  }
+  .contact-link:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+  .contact-link.primary {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: var(--ink);
+  }
+  .contact-link.primary:hover {
+    background: transparent;
+    color: var(--accent);
+  }
+
+  @media (max-width: 768px) {
+    section { padding: 5rem 1.5rem; }
+    .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+  }
+</style>
