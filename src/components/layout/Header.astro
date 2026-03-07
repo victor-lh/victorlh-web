@@ -21,7 +21,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 1.5rem 4rem;
-    background: rgba(245, 242, 237, 0.88);
+    background: color-mix(in srgb, var(--bg) 88%, transparent);
     backdrop-filter: blur(14px);
     border-bottom: 1px solid transparent;
     transition: border-color .3s;
@@ -29,7 +29,7 @@
   nav.scrolled { border-bottom-color: var(--line); }
 
   .nav-logo {
-    font-family: 'DM Serif Display', serif;
+    font-family: var(--font-serif);
     font-size: 1.1rem;
     letter-spacing: .02em;
   }

@@ -53,13 +53,13 @@ const sorted = entries.sort((a, b) => a.data.order - b.data.order);
     margin-bottom: 4rem;
   }
   .section-num {
-    font-family: 'DM Mono', monospace;
+    font-family: var(--font-mono);
     font-size: .7rem;
     color: var(--accent);
     letter-spacing: .15em;
   }
   .section-title {
-    font-family: 'DM Serif Display', serif;
+    font-family: var(--font-serif);
     font-size: clamp(2rem, 4vw, 3rem);
     letter-spacing: -.01em;
   }
@@ -84,13 +84,13 @@ const sorted = entries.sort((a, b) => a.data.order - b.data.order);
   }
 
   .exp-date {
-    font-family: 'DM Mono', monospace;
+    font-family: var(--font-mono);
     font-size: .72rem;
     color: var(--ink-soft);
   }
 
   .exp-role {
-    font-family: 'DM Serif Display', serif;
+    font-family: var(--font-serif);
     font-size: 1.3rem;
     margin-bottom: .2rem;
   }
@@ -112,7 +112,7 @@ const sorted = entries.sort((a, b) => a.data.order - b.data.order);
   .exp-stack { display: flex; flex-wrap: wrap; gap: .35rem; }
 
   .tag {
-    font-family: 'DM Mono', monospace;
+    font-family: var(--font-mono);
     font-size: .62rem;
     letter-spacing: .06em;
     padding: .28rem .65rem;
