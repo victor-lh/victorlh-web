@@ -1,3 +1,5 @@
+@import './theme.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -8,15 +10,6 @@
   padding: 0;
 }
 
-:root {
-  --bg: #F5F2ED;
-  --ink: #1A1714;
-  --ink-soft: #6B6560;
-  --accent: #C8A96E;
-  --line: #DDD8D0;
-  --white: #FDFCFA;
-}
-
 html {
   scroll-behavior: smooth;
 }
@@ -24,9 +17,9 @@ html {
 body {
   background: var(--bg);
   color: var(--ink);
-  font-family: 'DM Sans', sans-serif;
-  font-weight: 300;
-  line-height: 1.7;
+  font-family: var(--font-sans), serif;
+  font-weight: var(--text-base-weight);
+  line-height: var(--leading-base);
   overflow-x: hidden;
 }
 
@@ -45,7 +38,8 @@ body {
 .reveal {
   opacity: 0;
   transform: translateY(24px);
-  transition: opacity .7s ease, transform .7s ease;
+  transition: opacity var(--duration-reveal) var(--ease-out),
+              transform var(--duration-reveal) var(--ease-out);
 }
 .reveal.visible {
   opacity: 1;
@@ -53,13 +47,13 @@ body {
 }
 
 /* Hero animations */
-.hero-label  { opacity: 0; animation: fadeUp .8s .2s forwards; }
-.hero-name   { opacity: 0; animation: fadeUp .8s .4s forwards; }
-.hero-tagline { opacity: 0; animation: fadeUp .8s .6s forwards; }
-.hero-pills  { opacity: 0; animation: fadeUp .8s .7s forwards; }
-.hero-cta    { opacity: 0; animation: fadeUp .8s .85s forwards; }
-.hero-stat-row { opacity: 0; animation: fadeUp .8s 1s forwards; }
-.hero-scroll { opacity: 0; animation: fadeUp .8s 1.3s forwards; }
+.hero-label    { opacity: 0; animation: fadeUp var(--duration-fade) .2s forwards; }
+.hero-name     { opacity: 0; animation: fadeUp var(--duration-fade) .4s forwards; }
+.hero-tagline  { opacity: 0; animation: fadeUp var(--duration-fade) .6s forwards; }
+.hero-pills    { opacity: 0; animation: fadeUp var(--duration-fade) .7s forwards; }
+.hero-cta      { opacity: 0; animation: fadeUp var(--duration-fade) .85s forwards; }
+.hero-stat-row { opacity: 0; animation: fadeUp var(--duration-fade) 1s forwards; }
+.hero-scroll   { opacity: 0; animation: fadeUp var(--duration-fade) 1.3s forwards; }
 
 .scroll-line {
   width: 1px;

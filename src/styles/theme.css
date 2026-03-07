@@ -1,0 +1,68 @@
+/*
+ * ============================================================
+ *  TEMA — fuente única de verdad para tokens visuales
+ *  Para iterar el diseño, solo toca este fichero.
+ * ============================================================
+ */
+
+:root {
+
+  /* ----------------------------------------------------------
+   *  PALETA BRUTA
+   *  Colores base sin significado semántico.
+   *  Cambia aquí para probar una paleta distinta.
+   * ---------------------------------------------------------- */
+
+  --palette-neutral-0:  #FDFCFA;   /* casi blanco */
+  --palette-neutral-50: #F5F2ED;   /* fondo cálido */
+  --palette-neutral-100:#DDD8D0;   /* líneas / bordes */
+  --palette-neutral-500:#6B6560;   /* texto secundario */
+  --palette-neutral-900:#1A1714;   /* texto principal */
+
+  --palette-gold-400:   #C8A96E;   /* acento dorado */
+
+
+  /* ----------------------------------------------------------
+   *  TOKENS SEMÁNTICOS DE COLOR
+   *  Asignan significado a la paleta. No uses la paleta bruta
+   *  directamente en los componentes — usa estos tokens.
+   * ---------------------------------------------------------- */
+
+  --bg:       var(--palette-neutral-50);   /* fondo de página */
+  --white:    var(--palette-neutral-0);    /* superficies elevadas (cards, nav) */
+  --line:     var(--palette-neutral-100);  /* líneas, separadores, bordes */
+  --ink-soft: var(--palette-neutral-500);  /* texto secundario / etiquetas */
+  --ink:      var(--palette-neutral-900);  /* texto principal */
+  --accent:   var(--palette-gold-400);     /* acento interactivo (links, highlights) */
+
+
+  /* ----------------------------------------------------------
+   *  TIPOGRAFÍA
+   * ---------------------------------------------------------- */
+
+  --font-serif: 'DM Serif Display', serif;     /* títulos / display */
+  --font-mono:  'DM Mono', monospace;          /* chips, badges, código */
+  --font-sans:  'DM Sans', sans-serif;         /* cuerpo de texto */
+
+  --text-base-weight: 300;   /* peso base del body */
+  --leading-base:     1.7;   /* line-height base */
+
+
+  /* ----------------------------------------------------------
+   *  ESPACIADO Y FORMA
+   * ---------------------------------------------------------- */
+
+  --radius-sm:  4px;
+  --radius-md:  8px;
+  --radius-full: 9999px;
+
+
+  /* ----------------------------------------------------------
+   *  MOVIMIENTO
+   * ---------------------------------------------------------- */
+
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --duration-reveal: .7s;   /* transición del reveal on scroll */
+  --duration-fade:   .8s;   /* animaciones fadeUp del hero */
+
+}
