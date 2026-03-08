@@ -39,14 +39,6 @@ import Experience from '../components/sections/Experience.astro';
             <div class="meta-label">Stack principal</div>
             <div class="meta-value">Java 17 · Spring Boot · Kubernetes</div>
           </div>
-          <div class="meta-item">
-            <div class="meta-label">Freelance</div>
-            <div class="meta-value">Abierto a proyectos · Consultar</div>
-          </div>
-          <div class="meta-item">
-            <div class="meta-label">Idiomas</div>
-            <div class="meta-value">Español nativo · English</div>
-          </div>
         </div>
       </div>
     </div>
@@ -65,6 +57,10 @@ import Experience from '../components/sections/Experience.astro';
       </div>
       <div class="projects-grid">
         <div class="project-card reveal">
+          <div class="project-cover">
+            <img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=1200&q=80&fit=crop" alt="Roostfy" width="600" height="260" />
+          </div>
+          <div class="project-body">
           <div class="project-num">001</div>
           <div class="project-title">Roostfy</div>
           <div class="project-highlight">▲ +1.000.000 descargas en Google Play</div>
@@ -73,8 +69,13 @@ import Experience from '../components/sections/Experience.astro';
             <span class="tag">Kotlin</span><span class="tag">Android</span><span class="tag">Node.js</span>
             <span class="tag">GCP Serverless</span><span class="tag">WebRTC</span><span class="tag">Firebase</span>
           </div>
+          </div>
         </div>
         <div class="project-card reveal">
+          <div class="project-cover">
+            <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=1200&q=80&fit=crop" alt="E-commerce Leroy Merlin" width="600" height="260" />
+          </div>
+          <div class="project-body">
           <div class="project-num">002</div>
           <div class="project-title">E-commerce Leroy Merlin</div>
           <div class="project-highlight">▲ Arquitectura Hexagonal + Event-Driven</div>
@@ -83,8 +84,13 @@ import Experience from '../components/sections/Experience.astro';
             <span class="tag">Java 11</span><span class="tag">GCP</span><span class="tag">GKE</span>
             <span class="tag">Pub/Sub</span><span class="tag">MongoDB</span><span class="tag">Hexagonal</span>
           </div>
+          </div>
         </div>
         <div class="project-card reveal">
+          <div class="project-cover">
+            <img src="https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=1200&q=80&fit=crop" alt="Core Bancario Pecunpay" width="600" height="260" />
+          </div>
+          <div class="project-body">
           <div class="project-num">003</div>
           <div class="project-title">Core Bancario Pecunpay</div>
           <div class="project-highlight">▲ Fintech · Entidad de dinero electrónico</div>
@@ -92,6 +98,7 @@ import Experience from '../components/sections/Experience.astro';
           <div class="project-stack">
             <span class="tag">Spring Cloud</span><span class="tag">Spring Security</span>
             <span class="tag">PostgreSQL</span><span class="tag">OpenShift</span><span class="tag">Docker</span>
+          </div>
           </div>
         </div>
       </div>
@@ -160,6 +167,7 @@ import Experience from '../components/sections/Experience.astro';
     align-items: start;
   }
 
+  /* Text */
   .about-text p {
     color: var(--ink-soft);
     margin-bottom: 1.2rem;
@@ -205,12 +213,23 @@ import Experience from '../components/sections/Experience.astro';
   .project-card {
     background: var(--white);
     border: 1px solid var(--line);
-    padding: 2.5rem;
+    overflow: hidden;
     transition: transform .3s, border-color .3s;
   }
   .project-card:hover {
     transform: translateY(-4px);
     border-color: var(--accent);
+  }
+
+  .project-cover img {
+    display: block;
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+  }
+
+  .project-body {
+    padding: 2rem;
   }
 
   .project-num {
