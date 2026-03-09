@@ -1,5 +1,5 @@
 ---
-company: "CORPME"
+company: "Paradigma Digital"
 role: "Senior Java Developer"
 period: "Jun 2022 — Actual"
 current: true
