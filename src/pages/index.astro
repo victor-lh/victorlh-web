@@ -22,10 +22,17 @@ import { site } from '../data/site';
       </div>
       <div class="about-grid">
         <div class="about-text reveal">
-          <p>Soy desarrollador de software especializado en <strong>ingeniería de backend y diseño de arquitecturas escalables</strong>. Mi trayectoria se define por una mentalidad de aprendizaje continuo y una visión integral del ciclo de vida del software.</p>
-          <p>He consolidado una sólida experiencia en el ecosistema <strong>Java/Spring</strong>, con foco en microservicios, sistemas basados en eventos y migraciones de arquitecturas monolíticas a distribuidas en sectores como Fintech, Retail, Seguros y Sector Público.</p>
-          <p>Me distingo por un alto sentido de la responsabilidad, capacidad de colaboración en equipos multidisciplinares y un enfoque pragmático hacia la resolución de <strong>problemas técnicos complejos</strong>.</p>
-          <p>Mi proyección está orientada a liderar la innovación tecnológica en arquitecturas cloud y microservicios, aportando valor a través de la excelencia técnica en proyectos de alto impacto.</p>
+          <p>Soy desarrollador de software especializado en <strong>ingeniería de backend y diseño de arquitecturas
+            escalables</strong>. Mi trayectoria se define por una mentalidad de aprendizaje continuo y una visión
+            integral del ciclo de vida del software.</p>
+          <p>He consolidado una sólida experiencia en el ecosistema <strong>Java/Spring</strong>, con foco en
+            microservicios, sistemas basados en eventos y migraciones de arquitecturas monolíticas a distribuidas en
+            sectores como Fintech, Retail, Seguros y Sector Público.</p>
+          <p>Me distingo por un alto sentido de la responsabilidad, capacidad de colaboración en equipos
+            multidisciplinares y un enfoque pragmático hacia la resolución de <strong>problemas técnicos
+              complejos</strong>.</p>
+          <p>Mi proyección está orientada a liderar la innovación tecnológica en arquitecturas cloud y microservicios,
+            aportando valor a través de la excelencia técnica en proyectos de alto impacto.</p>
         </div>
         <div class="about-meta reveal">
           <div class="meta-item">
@@ -58,7 +65,8 @@ import { site } from '../data/site';
         <div class="section-line contact-line"></div>
       </div>
       <h3 class="contact-headline reveal">Puedes <em>encontrarme</em> aquí</h3>
-      <p class="contact-sub reveal">Si tienes alguna pregunta técnica, quieres compartir ideas o simplemente conectar, estaré encantado de leerte.</p>
+      <p class="contact-sub reveal">Si tienes alguna pregunta técnica, quieres compartir ideas o simplemente conectar,
+        estaré encantado de leerte.</p>
       <a href={`mailto:${site.email}`} class="contact-email reveal">{site.email}</a>
       <div class="contact-links reveal">
         <a href={`mailto:${site.email}`} class="contact-link primary">Enviar email</a>
@@ -73,27 +81,32 @@ import { site } from '../data/site';
   section {
     padding: 7rem 4rem;
   }
+
   .inner {
     max-width: 1000px;
     margin: 0 auto;
   }
+
   .section-header {
     display: flex;
     align-items: baseline;
     gap: 1.5rem;
     margin-bottom: 4rem;
   }
+
   .section-num {
-    font-family: var(--font-mono);
+    font-family: var(--font-mono), serif;
     font-size: .7rem;
     color: var(--accent);
     letter-spacing: .15em;
   }
+
   .section-title {
-    font-family: var(--font-serif);
+    font-family: var(--font-serif), serif;
     font-size: clamp(2rem, 4vw, 3rem);
     letter-spacing: -.01em;
   }
+
   .section-line {
     flex: 1;
     height: 1px;
@@ -101,7 +114,9 @@ import { site } from '../data/site';
   }
 
   /* About */
-  #about { background: var(--white); }
+  #about {
+    background: var(--white);
+  }
 
   .about-grid {
     display: grid;
@@ -116,6 +131,7 @@ import { site } from '../data/site';
     margin-bottom: 1.2rem;
     font-size: .95rem;
   }
+
   .about-text p strong {
     color: var(--ink);
     font-weight: 500;
@@ -132,17 +148,23 @@ import { site } from '../data/site';
     border: 1px solid var(--line);
     transition: border-color .2s;
   }
-  .meta-item:hover { border-color: var(--accent); }
+
+  .meta-item:hover {
+    border-color: var(--accent);
+  }
 
   .meta-label {
-    font-family: var(--font-mono);
+    font-family: var(--font-mono), serif;
     font-size: .62rem;
     letter-spacing: .15em;
     text-transform: uppercase;
     color: var(--accent);
     margin-bottom: .3rem;
   }
-  .meta-value { font-size: .9rem; }
+
+  .meta-value {
+    font-size: .9rem;
+  }
 
   /* Contact */
   #contact {
@@ -150,16 +172,23 @@ import { site } from '../data/site';
     color: var(--bg);
     text-align: center;
   }
-  .contact-title { color: var(--bg); }
-  .contact-line  { background: #3a3530; }
+
+  .contact-title {
+    color: var(--bg);
+  }
+
+  .contact-line {
+    background: #3a3530;
+  }
 
   .contact-headline {
-    font-family: var(--font-serif);
+    font-family: var(--font-serif), serif;
     font-size: clamp(2rem, 5vw, 4rem);
     max-width: 640px;
     margin: 0 auto 1.2rem;
     line-height: 1.1;
   }
+
   .contact-headline em {
     font-style: italic;
     color: var(--accent);
@@ -174,7 +203,7 @@ import { site } from '../data/site';
 
   .contact-email {
     display: inline-block;
-    font-family: var(--font-mono);
+    font-family: var(--font-mono), serif;
     font-size: 1rem;
     letter-spacing: .06em;
     color: var(--bg);
@@ -183,7 +212,10 @@ import { site } from '../data/site';
     opacity: .55;
     transition: opacity .2s;
   }
-  .contact-email:hover { opacity: 1; }
+
+  .contact-email:hover {
+    opacity: 1;
+  }
 
   .contact-links {
     display: flex;
@@ -202,22 +234,31 @@ import { site } from '../data/site';
     text-transform: uppercase;
     transition: border-color .2s, color .2s;
   }
+
   .contact-link:hover {
     border-color: var(--accent);
     color: var(--accent);
   }
+
   .contact-link.primary {
     background: var(--accent);
     border-color: var(--accent);
     color: var(--ink);
   }
+
   .contact-link.primary:hover {
     background: transparent;
     color: var(--accent);
   }
 
   @media (max-width: 768px) {
-    section { padding: 5rem 1.5rem; }
-    .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+    section {
+      padding: 5rem 1.5rem;
+    }
+
+    .about-grid {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
   }
 </style>
