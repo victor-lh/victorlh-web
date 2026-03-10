@@ -1,0 +1,63 @@
+@import './theme.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-sans), serif;
+  font-weight: var(--text-base-weight);
+  line-height: var(--leading-base);
+  overflow-x: hidden;
+}
+
+/* Animations */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes scrollPulse {
+  0%, 100% { opacity: .3; transform: scaleY(1); }
+  50%       { opacity: 1;  transform: scaleY(1.2); }
+}
+
+/* Reveal on scroll */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity var(--duration-reveal) var(--ease-out),
+              transform var(--duration-reveal) var(--ease-out);
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Hero animations */
+.hero-label    { opacity: 0; animation: fadeUp var(--duration-fade) .2s forwards; }
+.hero-name     { opacity: 0; animation: fadeUp var(--duration-fade) .4s forwards; }
+.hero-tagline  { opacity: 0; animation: fadeUp var(--duration-fade) .6s forwards; }
+.hero-pills    { opacity: 0; animation: fadeUp var(--duration-fade) .7s forwards; }
+.hero-cta      { opacity: 0; animation: fadeUp var(--duration-fade) .85s forwards; }
+.hero-stat-row { opacity: 0; animation: fadeUp var(--duration-fade) 1s forwards; }
+.hero-scroll   { opacity: 0; animation: fadeUp var(--duration-fade) 1.3s forwards; }
+
+.scroll-line {
+  width: 1px;
+  height: 36px;
+  background: var(--accent);
+  animation: scrollPulse 2s infinite;
+}

@@ -1,0 +1,62 @@
+---
+interface Props {
+  variant: 'solid' | 'outline';
+  href: string;
+  label: string;
+  external?: boolean;
+}
+
+const { variant, href, label, external = false } = Astro.props;
+const rel = external ? 'noopener noreferrer' : undefined;
+const target = external ? '_blank' : undefined;
+---
+
+{variant === 'solid' ? (
+  <a
+    href={href}
+    {rel}
+    {target}
+    class="btn-primary"
+  >{label}</a>
+) : (
+  <a
+    href={href}
+    {rel}
+    {target}
+    class="btn-ghost"
+  >{label} →</a>
+)}
+
+<style>
+  .btn-primary {
+    display: inline-block;
+    padding: .85rem 2rem;
+    background: var(--ink);
+    color: var(--bg);
+    font-family: var(--font-sans);
+    font-size: .78rem;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: background .2s, transform .2s;
+  }
+  .btn-primary:hover {
+    background: var(--accent);
+    transform: translateY(-2px);
+  }
+
+  .btn-ghost {
+    display: inline-block;
+    font-size: .78rem;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    text-decoration: none;
+    border-bottom: 1px solid var(--line);
+    transition: color .2s, border-color .2s;
+  }
+  .btn-ghost:hover {
+    color: var(--ink);
+    border-color: var(--ink);
+  }
+</style>

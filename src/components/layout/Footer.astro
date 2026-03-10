@@ -1,0 +1,35 @@
+---
+const year = new Date().getFullYear();
+---
+
+<footer>
+  <span>© {year} Víctor Latorre Herreros</span>
+  <span>Backend Engineer · Madrid</span>
+  <span>victorlh.com</span>
+</footer>
+
+<style>
+  footer {
+    background: var(--ink);
+    padding: 2rem 4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid #2a2520;
+  }
+  footer span {
+    font-family: var(--font-mono);
+    font-size: .62rem;
+    letter-spacing: .1em;
+    color: #4a4540;
+  }
+
+  @media (max-width: 768px) {
+    footer {
+      flex-direction: column;
+      gap: 1rem;
+      text-align: center;
+      padding: 1.5rem;
+    }
+  }
+</style>

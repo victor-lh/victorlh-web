@@ -1,0 +1,127 @@
+---
+import { getCollection } from 'astro:content';
+import Badge from '../ui/Badge.astro';
+
+const entries = await getCollection('experience');
+const sorted = entries.sort((a, b) => a.data.order - b.data.order);
+---
+
+<section id="experience">
+  <div class="inner">
+    <div class="section-header">
+      <span class="section-num">03</span>
+      <h2 class="section-title">Experiencia</h2>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="exp-list">
+      {sorted.map((entry) => (
+        <div class="exp-item reveal">
+          <div class="exp-left">
+            <div class="exp-date">{entry.data.period}</div>
+            <Badge label={entry.data.company} />
+          </div>
+          <div>
+            <div class="exp-role">{entry.data.role}</div>
+            {entry.data.sector && (
+              <div class="exp-sector">{entry.data.sector}</div>
+            )}
+            <div class="exp-desc">{entry.data.description}</div>
+            <div class="exp-stack">
+              {entry.data.tags.map((tag) => (
+                <span class="tag">{tag}</span>
+              ))}
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  #experience { background: var(--white); }
+
+  .inner { max-width: 1000px; margin: 0 auto; }
+
+  section { padding: 7rem 4rem; }
+
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 1.5rem;
+    margin-bottom: 4rem;
+  }
+  .section-num {
+    font-family: var(--font-mono);
+    font-size: .7rem;
+    color: var(--accent);
+    letter-spacing: .15em;
+  }
+  .section-title {
+    font-family: var(--font-serif);
+    font-size: clamp(2rem, 4vw, 3rem);
+    letter-spacing: -.01em;
+  }
+  .section-line { flex: 1; height: 1px; background: var(--line); }
+
+  .exp-list { display: flex; flex-direction: column; }
+
+  .exp-item {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 2.5rem;
+    padding: 2.8rem 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .exp-item:first-child { border-top: 1px solid var(--line); }
+
+  .exp-left {
+    display: flex;
+    flex-direction: column;
+    gap: .4rem;
+    padding-top: .2rem;
+  }
+
+  .exp-date {
+    font-family: var(--font-mono);
+    font-size: .72rem;
+    color: var(--ink-soft);
+  }
+
+  .exp-role {
+    font-family: var(--font-serif);
+    font-size: 1.3rem;
+    margin-bottom: .2rem;
+  }
+
+  .exp-sector {
+    font-size: .78rem;
+    color: var(--accent);
+    margin-bottom: .8rem;
+    letter-spacing: .04em;
+  }
+
+  .exp-desc {
+    font-size: .88rem;
+    color: var(--ink-soft);
+    max-width: 560px;
+    margin-bottom: 1rem;
+  }
+
+  .exp-stack { display: flex; flex-wrap: wrap; gap: .35rem; }
+
+  .tag {
+    font-family: var(--font-mono);
+    font-size: .62rem;
+    letter-spacing: .06em;
+    padding: .28rem .65rem;
+    border: 1px solid var(--line);
+    color: var(--ink-soft);
+  }
+
+  @media (max-width: 768px) {
+    section { padding: 5rem 1.5rem; }
+    .exp-item { grid-template-columns: 1fr; gap: .5rem; }
+  }
+</style>

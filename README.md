@@ -1,43 +1,129 @@
-# Astro Starter Kit: Minimal
+# victorlh.com
 
-```sh
-pnpm create astro@latest -- --template minimal
+Personal portfolio and CV website for **Víctor Latorre**, Backend Engineer.
+
+**Live → [victorlh.com](https://victorlh.com)**
+
+---
+
+## Built with
+
+| Technology | Role |
+|---|---|
+| [Astro 5](https://astro.build) | Static site generation |
+| [Tailwind CSS v3](https://tailwindcss.com) | Styling via PostCSS (no framework integration) |
+| TypeScript (strict) | Type safety across components and data |
+| [Astro Content Collections](https://docs.astro.build/en/guides/content-collections/) | Work experience in Markdown + Zod validation |
+| [Vercel](https://vercel.com) | Static deployment |
+
+---
+
+## Features
+
+- **Zero client-side JS framework** — pure Astro with minimal inline scripts
+- **Content-driven** — experience entries are Markdown files validated by Zod schema
+- **SEO-complete** — JSON-LD Person schema, Open Graph, Twitter Cards, sitemap, canonical URLs
+- **Design tokens** — consistent palette via CSS custom properties mapped to Tailwind utilities
+- **Reveal animations** — scroll-triggered via IntersectionObserver
+- **Responsive** — mobile-first layout
+
+---
+
+## Project structure
+
+```
+src/
+├── components/
+│   ├── layout/       # Header.astro, Footer.astro
+│   ├── sections/     # Hero.astro, Experience.astro, Stack.astro
+│   └── ui/           # Button.astro, Chip.astro, Badge.astro
+├── content/
+│   ├── config.ts     # Zod schema for experience collection
+│   └── experience/   # One .md per job (company, role, period, tags…)
+├── data/
+│   ├── site.ts       # Shared metadata (name, URL, socials)
+│   └── stack.ts      # Tech stack array (name, level, category)
+├── layouts/
+│   └── BaseLayout.astro   # <head>, SEO tags, JSON-LD, fonts
+├── pages/
+│   ├── index.astro   # Single page (Hero, About, Stack, Experience, Contact)
+│   └── 404.astro
+└── styles/
+    └── global.css    # CSS vars, @tailwind directives, animations
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+---
 
-## 🚀 Project Structure
+## Getting started
 
-Inside of your Astro project, you'll see the following folders and files:
+**Prerequisites:** Node.js ≥ 18, [pnpm](https://pnpm.io)
 
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
+```bash
+# Install dependencies
+pnpm install
+
+# Start dev server at http://localhost:4321
+pnpm dev
+
+# Production build → ./dist/
+pnpm build
+
+# Preview the production build locally
+pnpm preview
+
+# Generate OG image (public/og-image.png)
+pnpm og
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+---
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+## Customisation
 
-Any static assets, like images, can be placed in the `public/` directory.
+### Adding a job
 
-## 🧞 Commands
+Create `src/content/experience/<slug>.md`:
 
-All commands are run from the root of the project, from a terminal:
+```markdown
+---
+company: Acme Corp
+role: Senior Backend Engineer
+period: 2023 – present
+current: true
+description: What you did there.
+tags: [Java, Spring Boot, Kubernetes]
+sector: Fintech
+order: 1
+---
+```
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `pnpm install`             | Installs dependencies                            |
-| `pnpm dev`             | Starts local dev server at `localhost:4321`      |
-| `pnpm build`           | Build your production site to `./dist/`          |
-| `pnpm preview`         | Preview your build locally, before deploying     |
-| `pnpm astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `pnpm astro -- --help` | Get help using the Astro CLI                     |
+### Updating the tech stack
 
-## 👀 Want to learn more?
+Edit `src/data/stack.ts` — each entry has `name`, `level` (`expert | advanced | intermediate`), and `category` (`backend | infra | mobile | db`).
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+### Changing site metadata
+
+Edit `src/data/site.ts` — this is the single source of truth for name, URL, email, and social links. BaseLayout reads it for JSON-LD and meta tags.
+
+---
+
+## Design system
+
+CSS custom properties defined in `global.css`, exposed as Tailwind utilities via `tailwind.config.mjs`:
+
+| Token | Value | Usage |
+|---|---|---|
+| `--bg` | `#F5F2ED` | Page background |
+| `--ink` | `#1A1714` | Primary text |
+| `--ink-soft` | `#6B6560` | Secondary text |
+| `--accent` | `#C8A96E` | Highlights, labels |
+| `--line` | `#DDD8D0` | Borders, dividers |
+| `--white` | `#FDFCFA` | Card / section backgrounds |
+
+Fonts: **Outfit** (300/400/500) + **Space Mono** — loaded from Google Fonts.
+
+---
+
+## License
+
+The source code is open source under the [MIT License](LICENSE).
+Content (texts, CV data, images) is © Víctor Latorre — all rights reserved.

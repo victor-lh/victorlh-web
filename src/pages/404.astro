@@ -1,0 +1,67 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="404 — Página no encontrada" description="Esta página no existe.">
+  <section>
+    <div class="inner">
+      <span class="code">404</span>
+      <h1>Página no encontrada</h1>
+      <p>La página que buscas no existe o ha sido movida.</p>
+      <a href="/" class="back-link">← Volver al inicio</a>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  section {
+    padding: 10rem 2rem;
+    min-height: 60vh;
+    display: flex;
+    align-items: center;
+  }
+
+  .inner {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .code {
+    font-family: var(--font-mono), monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    color: var(--accent);
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 1rem;
+  }
+
+  h1 {
+    font-family: var(--font-serif), serif;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    margin-bottom: 1rem;
+    letter-spacing: -0.01em;
+  }
+
+  p {
+    color: var(--ink-soft);
+    font-size: 0.95rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .back-link {
+    font-size: 0.8rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 2px;
+    transition: border-color 0.2s, color 0.2s;
+  }
+
+  .back-link:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+  }
+</style>
