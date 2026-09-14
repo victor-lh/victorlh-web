@@ -36,7 +36,7 @@ src/
 ├── components/
 │   ├── layout/       # Header.astro, Footer.astro
 │   ├── sections/     # Hero.astro, Experience.astro, Stack.astro
-│   └── ui/           # Button.astro, Chip.astro, Badge.astro
+│   └── ui/           # Button.astro, Chip.astro
 ├── content/
 │   ├── config.ts     # Zod schema for experience collection
 │   └── experience/   # One .md per job (company, role, period, tags…)
@@ -108,18 +108,22 @@ Edit `src/data/site.ts` — this is the single source of truth for name, URL, em
 
 ## Design system
 
-CSS custom properties defined in `global.css`, exposed as Tailwind utilities via `tailwind.config.mjs`:
+CSS custom properties defined in `src/styles/theme.css`, exposed as Tailwind utilities via `tailwind.config.mjs`. Light theme only:
 
 | Token | Value | Usage |
 |---|---|---|
-| `--bg` | `#F5F2ED` | Page background |
-| `--ink` | `#1A1714` | Primary text |
-| `--ink-soft` | `#6B6560` | Secondary text |
-| `--accent` | `#C8A96E` | Highlights, labels |
-| `--line` | `#DDD8D0` | Borders, dividers |
-| `--white` | `#FDFCFA` | Card / section backgrounds |
+| `--bg` | `#F1F2F4` | Page background |
+| `--white` | `#FBFBFC` | Panels, chips, tiles |
+| `--surface` | `#E6E8EB` | Muted tiles, contact panel |
+| `--line` | `#D6D9DE` | Borders, dividers |
+| `--ink-soft` | `#585E68` | Secondary text |
+| `--ink` | `#14161A` | Primary text |
+| `--accent` | `#B8431A` | Single accent (links, current role, highlights) |
+| `--accent-soft` | `#F3DED5` | Accent tint |
 
-Fonts: **Outfit** (300/400/500) + **Space Mono** — loaded from Google Fonts.
+Radii: chips 6px, panels/tiles 20px, buttons pill.
+
+Fonts: **Bricolage Grotesque** (display) + **Geist** (body) + **Geist Mono** (data), self-hosted at build time via the Astro Fonts API.
 
 ---
 

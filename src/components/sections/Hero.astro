@@ -20,195 +20,217 @@ const stats = [
 ];
 ---
 
-<section id="hero">
-  <div class="hero-inner">
-    <p class="hero-label">Backend Engineer · Madrid, ES · {stats[0].num} {stats[0].label}</p>
+<section id="hero" class="hero">
+  <div class="container">
+    <div class="hero-grid">
+      <div class="hero-copy">
+        <p class="hero-label intro" style="--i: 0">Backend Engineer · Madrid, ES</p>
 
-    <div class="hero-avatar-wrap">
-      <Image src={avatar} alt="Víctor Latorre" width={256} height={256} class="hero-avatar" />
+        <h1 class="hero-name intro" style="--i: 1">
+          <span>Víctor</span>
+          <span>Latorre</span>
+        </h1>
+
+        <p class="hero-tagline intro" style="--i: 2">
+          Especialista en arquitecturas de microservicios, sistemas distribuidos y modernización de
+          plataformas críticas en el ecosistema Java/Spring.
+        </p>
+
+        <div class="hero-cta intro" style="--i: 3">
+          <Button variant="solid" href="#experience" label="Ver trayectoria" />
+          <Button variant="link" href="#contact" label="Hablemos" />
+        </div>
+      </div>
+
+      <figure class="hero-portrait intro" style="--i: 2">
+        <div class="portrait-frame">
+          <Image
+            src={avatar}
+            alt="Ilustración de Víctor Latorre"
+            width={avatar.width}
+            height={avatar.height}
+            loading="eager"
+            fetchpriority="high"
+          />
+        </div>
+      </figure>
     </div>
 
-    <h1 class="hero-name">Víctor <em>Latorre</em></h1>
+    <div class="hero-facts intro" style="--i: 4">
+      <dl class="facts-stats">
+        {
+          stats.map((s) => (
+            <div class="fact">
+              <dt>{s.label}</dt>
+              <dd>{s.num}</dd>
+            </div>
+          ))
+        }
+      </dl>
 
-    <p class="hero-tagline">
-      Especialista en arquitecturas de microservicios, sistemas distribuidos y modernización de
-      plataformas críticas en el ecosistema Java/Spring.
-    </p>
-
-    <div class="hero-pills">
-      {pills.map((p) => <Chip label={p} />)}
+      <ul class="facts-pills" aria-label="Especialidades">
+        {
+          pills.map((p) => (
+            <li>
+              <Chip label={p} />
+            </li>
+          ))
+        }
+      </ul>
     </div>
-
-    <div class="hero-cta">
-      <Button variant="solid" href="#experience" label="Ver trayectoria" />
-      <Button variant="outline" href="#contact" label="Hablemos" />
-    </div>
-
-    <div class="hero-stat-row">
-      {
-        stats.map((s) => (
-          <div>
-            <div class="hero-stat-num">{s.num}</div>
-            <div class="hero-stat-label">{s.label}</div>
-          </div>
-        ))
-      }
-    </div>
-  </div>
-
-  <div class="hero-scroll">
-    <svg class="scroll-arrow" width="20" height="28" viewBox="0 0 20 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <line x1="10" y1="0" x2="10" y2="20" stroke="currentColor" stroke-width="1.5"/>
-      <polyline points="4,14 10,21 16,14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
-    </svg>
   </div>
 </section>
 
 <style>
-  #hero {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 8rem 4rem 4rem;
-    text-align: center;
-    gap: 2.5rem;
+  .hero {
+    padding-block: 6.5rem 0;
   }
 
-  .hero-inner {
-    max-width: 760px;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  .hero-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.3fr) minmax(0, .7fr);
+    gap: clamp(2rem, 5vw, 5rem);
+    align-items: end;
   }
 
   /* Label */
   .hero-label {
     font-family: var(--font-mono);
-    font-size: 0.75rem;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 2rem;
-  }
-
-  /* Avatar */
-  .hero-avatar-wrap {
-    width: 128px;
-    height: 128px;
-    border-radius: 50%;
-    overflow: hidden;
-    border: 2px solid var(--line);
-    margin-bottom: 2rem;
-    flex-shrink: 0;
-  }
-
-  .hero-avatar {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center top;
-    display: block;
+    font-size: .8125rem;
+    color: var(--ink-soft);
   }
 
   /* Name */
   .hero-name {
-    font-family: var(--font-serif), serif;
-    font-size: clamp(3.2rem, 7.5vw, 6.5rem);
-    line-height: 1.03;
-    letter-spacing: -0.02em;
-    white-space: nowrap;
-    margin-bottom: 1.8rem;
+    margin-block: 1.25rem 1.75rem;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(3.5rem, 10vw, 8rem);
+    line-height: .92;
+    letter-spacing: -.05em;
   }
-  .hero-name em {
-    font-style: italic;
+  .hero-name span {
+    display: block;
+  }
+  .hero-name span:last-child {
     color: var(--ink-soft);
   }
 
   /* Tagline */
   .hero-tagline {
-    font-size: 1.08rem;
+    max-width: 42ch;
+    font-size: clamp(1.0625rem, 1.5vw, 1.25rem);
+    line-height: 1.5;
     color: var(--ink-soft);
-    max-width: 560px;
-  }
-
-  /* Pills */
-  .hero-pills {
-    margin-top: 1.5rem;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 0.5rem;
   }
 
   /* CTA */
   .hero-cta {
-    margin-top: 2.8rem;
+    margin-top: 2.25rem;
     display: flex;
-    gap: 1.2rem;
+    flex-wrap: wrap;
     align-items: center;
-    justify-content: center;
+    gap: 1rem 1.75rem;
   }
 
-  /* Stats */
-  .hero-stat-row {
-    display: flex;
-    gap: 3rem;
-    margin-top: 3.5rem;
-    padding-top: 2rem;
+  /* Portrait */
+  .hero-portrait {
+    position: relative;
+    isolation: isolate;
+    justify-self: end;
+    width: 100%;
+    max-width: 420px;
+    margin-bottom: .75rem;
+  }
+  .hero-portrait::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: var(--radius-lg);
+    background: var(--accent-soft);
+    transform: translate(.9rem, .9rem);
+  }
+
+  .portrait-frame {
+    aspect-ratio: 1;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    background: #fff;
+    box-shadow: var(--shadow-lift);
+  }
+  .portrait-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+  }
+
+  /* Facts */
+  .hero-facts {
+    margin-top: clamp(3rem, 6vw, 4.5rem);
+    padding-block: 2rem;
     border-top: 1px solid var(--line);
-    justify-content: center;
-  }
-
-  .hero-stat-num {
-    font-family: var(--font-serif);
-    font-size: 2.2rem;
-    color: var(--ink);
-    line-height: 1;
-  }
-
-  .hero-stat-label {
-    font-family: var(--font-mono);
-    font-size: 0.65rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--ink-soft);
-    margin-top: 0.3rem;
-  }
-
-  /* Scroll */
-  .hero-scroll {
-    display: flex;
+    display: grid;
+    grid-template-columns: minmax(0, 1.3fr) minmax(0, .7fr);
+    gap: 2rem clamp(2rem, 5vw, 5rem);
     align-items: center;
-    justify-content: center;
   }
 
-  .scroll-arrow {
+  .facts-stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem clamp(2rem, 5vw, 4rem);
+  }
+
+  .fact {
+    display: flex;
+    flex-direction: column-reverse;
+  }
+  .fact dd {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(2.25rem, 4vw, 3rem);
+    line-height: 1;
+    letter-spacing: -.04em;
+    font-variant-numeric: tabular-nums;
+  }
+  .fact dt {
+    margin-top: .5rem;
+    font-size: .875rem;
     color: var(--ink-soft);
-    opacity: .4;
-    animation: scrollBounce 2s ease-in-out infinite;
   }
 
-  @keyframes scrollBounce {
-    0%, 100% { transform: translateY(0);   opacity: .4; }
-    50%       { transform: translateY(5px); opacity: .8; }
+  .facts-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .5rem;
+    list-style: none;
   }
 
   @media (max-width: 768px) {
-    #hero {
-      padding: 7rem 1.5rem 4rem;
+    .hero {
+      padding-top: 5.5rem;
     }
+
+    .hero-grid,
+    .hero-facts {
+      grid-template-columns: 1fr;
+    }
+
+    .hero-portrait {
+      order: -1;
+      justify-self: start;
+      max-width: min(200px, 55vw);
+      margin-bottom: 1rem;
+    }
+    .hero-portrait::before {
+      transform: translate(.5rem, .5rem);
+    }
+
     .hero-name {
-      white-space: normal;
-    }
-    .hero-stat-row {
-      gap: 1.5rem;
-      flex-wrap: wrap;
-    }
-    .hero-scroll {
-      display: none;
+      margin-block: 1rem 1.25rem;
     }
   }
 </style>

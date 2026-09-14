@@ -1,63 +1,169 @@
 ---
+const links = [
+  { id: 'about', label: 'Sobre mí', secondary: true },
+  { id: 'skills', label: 'Skills', secondary: true },
+  { id: 'experience', label: 'Experiencia', secondary: false },
+];
 ---
 
-<nav id="nav">
-  <div class="nav-logo">Víctor Latorre</div>
-  <ul class="nav-links">
-    <li><a href="#about">Sobre mí</a></li>
-    <li><a href="#skills">Skills</a></li>
-    <li><a href="#experience">Experiencia</a></li>
-<li><a href="#contact">Contacto</a></li>
-  </ul>
-</nav>
+<div class="nav-sentinel" aria-hidden="true"></div>
+<header id="nav" class="site-header">
+  <div class="container nav-inner">
+    <a href="/" class="nav-logo">Víctor Latorre</a>
+    <nav aria-label="Principal">
+      <ul class="nav-links">
+        {
+          links.map((link) => (
+            <li class:list={[link.secondary && 'nav-secondary']}>
+              <a href={`/#${link.id}`} data-section={link.id}>
+                {link.label}
+              </a>
+            </li>
+          ))
+        }
+        <li class="nav-cta">
+          <a href="/#contact" data-section="contact">Contacto</a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</header>
 
 <style>
-  nav {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    z-index: 100;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1.5rem 4rem;
-    background: color-mix(in srgb, var(--bg) 88%, transparent);
-    backdrop-filter: blur(14px);
-    border-bottom: 1px solid transparent;
-    transition: border-color .3s;
+  .nav-sentinel {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 1px;
+    height: 32px;
+    pointer-events: none;
   }
-  nav.scrolled { border-bottom-color: var(--line); }
+
+  .site-header {
+    position: fixed;
+    top: 0;
+    inset-inline: 0;
+    z-index: var(--z-nav);
+    background: color-mix(in srgb, var(--bg) 82%, transparent);
+    backdrop-filter: blur(12px) saturate(140%);
+    -webkit-backdrop-filter: blur(12px) saturate(140%);
+    border-bottom: 1px solid transparent;
+    transition: border-color .3s ease;
+  }
+  .site-header.scrolled {
+    border-bottom-color: var(--line);
+  }
+
+  .nav-inner {
+    height: 4rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+  }
 
   .nav-logo {
-    font-family: var(--font-serif);
-    font-size: 1.1rem;
-    letter-spacing: .02em;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 1.0625rem;
+    letter-spacing: -.02em;
+    color: var(--ink);
+    text-decoration: none;
+    white-space: nowrap;
   }
 
   .nav-links {
     display: flex;
-    gap: 2.5rem;
+    align-items: center;
+    gap: clamp(1rem, 2.5vw, 2.25rem);
     list-style: none;
   }
 
   .nav-links a {
-    font-size: .78rem;
-    letter-spacing: .12em;
-    text-transform: uppercase;
+    position: relative;
+    display: inline-block;
+    padding-block: .35rem;
+    font-size: .9375rem;
     color: var(--ink-soft);
     text-decoration: none;
-    transition: color .2s;
+    white-space: nowrap;
+    transition: color .2s ease;
   }
-  .nav-links a:hover { color: var(--ink); }
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -1px;
+    height: 2px;
+    border-radius: 2px;
+    background: var(--accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform .35s var(--ease-out);
+  }
+  .nav-links a:hover,
+  .nav-links a[aria-current='true'] {
+    color: var(--ink);
+  }
+  .nav-links a[aria-current='true']::after {
+    transform: scaleX(1);
+  }
 
-  @media (max-width: 768px) {
-    nav { padding: 1.2rem 1.5rem; }
-    .nav-links { display: none; }
+  .nav-cta a {
+    padding: .5rem 1rem;
+    border: 1px solid color-mix(in srgb, var(--ink) 20%, transparent);
+    border-radius: var(--radius-full);
+    color: var(--ink);
+    transition: background-color .25s ease, color .25s ease, border-color .25s ease;
+  }
+  .nav-cta a::after {
+    display: none;
+  }
+  .nav-cta a:hover,
+  .nav-cta a[aria-current='true'] {
+    background: var(--ink);
+    border-color: var(--ink);
+    color: var(--white);
+  }
+  .nav-cta a:active {
+    transform: scale(.98);
+  }
+
+  @media (max-width: 560px) {
+    .nav-secondary {
+      display: none;
+    }
   }
 </style>
 
 <script>
-  const nav = document.getElementById('nav');
-  window.addEventListener('scroll', () => {
-    nav?.classList.toggle('scrolled', window.scrollY > 40);
+  const header = document.getElementById('nav');
+  const sentinel = document.querySelector('.nav-sentinel');
+
+  if (header && sentinel) {
+    new IntersectionObserver(([entry]) => {
+      header.classList.toggle('scrolled', !entry.isIntersecting);
+    }).observe(sentinel);
+  }
+
+  // Highlight the nav link of the section currently in view
+  const links = document.querySelectorAll<HTMLAnchorElement>('.nav-links a[data-section]');
+  const spy = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        links.forEach((link) => {
+          link.setAttribute('aria-current', String(link.dataset.section === entry.target.id));
+        });
+      });
+    },
+    { rootMargin: '-45% 0px -50% 0px' },
+  );
+
+  // The hero is observed too so that no link stays highlighted when scrolling back to the top
+  ['hero', ...Array.from(links, (link) => link.dataset.section)].forEach((id) => {
+    const section = id && document.getElementById(id);
+    if (section) spy.observe(section);
   });
 </script>
