@@ -1,6 +1,7 @@
 export const site = {
   name: 'Víctor',
   fullName: 'Víctor Latorre',
+  alternateName: 'victorlh',
   jobTitle: 'Backend Engineer',
   url: 'https://victorlh.com',
   email: 'victor@victorlh.com',

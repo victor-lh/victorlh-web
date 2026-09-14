@@ -3,13 +3,18 @@ import { defineConfig, fontProviders } from 'astro/config';
 import vercel from '@astrojs/vercel';
 import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
+import { lastUpdated } from './src/data/last-updated.ts';
 
 // https://astro.build/config
 export default defineConfig({
   site: 'https://victorlh.com',
   output: 'static',
   adapter: vercel(),
-  integrations: [sitemap()],
+  integrations: [sitemap({ lastmod: lastUpdated })],
+  // Emitted by the Vercel adapter as a real 301, avoiding a duplicate of the home page
+  redirects: {
+    '/index.html': '/',
+  },
   fonts: [
     {
       provider: fontProviders.google(),
