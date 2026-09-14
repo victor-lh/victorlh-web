@@ -6,6 +6,7 @@ import Header from '../components/layout/Header.astro';
 import Footer from '../components/layout/Footer.astro';
 import avatar from '../assets/avatar.png';
 import { site } from '../data/site';
+import { lastUpdated } from '../data/last-updated';
 
 interface Props {
   title: string;
@@ -20,46 +21,67 @@ const ogImage = new URL('/og-image.png', Astro.site).href;
 const avatarImage = await getImage({ src: avatar, format: 'png', width: 400 });
 const currentJob = (await getCollection('experience')).find((entry) => entry.data.current);
 
-const jsonLd = [
-  {
-    '@context': 'https://schema.org',
-    '@type': 'WebSite',
-    name: site.fullName,
-    url: site.url,
-    inLanguage: 'es-ES',
+const websiteId = `${site.url}/#website`;
+const personId = `${site.url}/#person`;
+
+const website = {
+  '@type': 'WebSite',
+  '@id': websiteId,
+  name: site.fullName,
+  alternateName: site.alternateName,
+  url: `${site.url}/`,
+  inLanguage: 'es-ES',
+  publisher: { '@id': personId },
+};
+
+const person = {
+  '@type': 'Person',
+  '@id': personId,
+  name: site.fullName,
+  jobTitle: site.jobTitle,
+  description:
+    'Backend Engineer especializado en microservicios, arquitecturas distribuidas y ecosistema Java/Spring.',
+  url: site.url,
+  image: new URL(avatarImage.src, Astro.site).href,
+  email: site.email,
+  sameAs: [site.linkedin, site.github],
+  knowsAbout: [
+    'Java',
+    'Spring Boot',
+    'Microservicios',
+    'Arquitecturas distribuidas',
+    'Event-Driven Architecture',
+    'Kubernetes',
+    'Google Cloud Platform',
+    'Kotlin',
+    'Node.js',
+  ],
+  ...(currentJob && {
+    worksFor: { '@type': 'Organization', name: currentJob.data.company },
+  }),
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: site.location.city,
+    addressCountry: site.location.country,
   },
-  {
-    '@context': 'https://schema.org',
-    '@type': 'Person',
-    name: site.fullName,
-    jobTitle: site.jobTitle,
-    description:
-      'Backend Engineer especializado en microservicios, arquitecturas distribuidas y ecosistema Java/Spring.',
-    url: site.url,
-    image: new URL(avatarImage.src, Astro.site).href,
-    email: site.email,
-    sameAs: [site.linkedin, site.github],
-    knowsAbout: [
-      'Java',
-      'Spring Boot',
-      'Microservicios',
-      'Arquitecturas distribuidas',
-      'Event-Driven Architecture',
-      'Kubernetes',
-      'Google Cloud Platform',
-      'Kotlin',
-      'Node.js',
-    ],
-    ...(currentJob && {
-      worksFor: { '@type': 'Organization', name: currentJob.data.company },
-    }),
-    address: {
-      '@type': 'PostalAddress',
-      addressLocality: site.location.city,
-      addressCountry: site.location.country,
-    },
-  },
-];
+};
+
+// ProfilePage only on indexable pages (the 404 keeps WebSite + Person)
+const profilePage = {
+  '@type': 'ProfilePage',
+  '@id': `${canonicalUrl}#profilepage`,
+  url: canonicalUrl,
+  name: title,
+  inLanguage: 'es-ES',
+  isPartOf: { '@id': websiteId },
+  dateModified: lastUpdated.toISOString(),
+  mainEntity: { '@id': personId },
+};
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': noindex ? [website, person] : [website, profilePage, person],
+};
 ---
 
 <!doctype html>
@@ -79,7 +101,7 @@ const jsonLd = [
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
-    <meta property="og:site_name" content={site.name} />
+    <meta property="og:site_name" content={site.fullName} />
     <meta property="og:locale" content="es_ES" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
