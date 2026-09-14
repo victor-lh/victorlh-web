@@ -1,67 +1,49 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import Button from '../components/ui/Button.astro';
 ---
 
-<BaseLayout title="404 — Página no encontrada" description="Esta página no existe.">
-  <section>
-    <div class="inner">
-      <span class="code">404</span>
+<BaseLayout title="404 · Página no encontrada" description="Esta página no existe." noindex>
+  <section class="not-found">
+    <div class="container">
+      <p class="code" aria-hidden="true">404</p>
       <h1>Página no encontrada</h1>
-      <p>La página que buscas no existe o ha sido movida.</p>
-      <a href="/" class="back-link">← Volver al inicio</a>
+      <p class="lead">La página que buscas no existe o ha sido movida.</p>
+      <Button variant="solid" href="/" label="← Volver al inicio" />
     </div>
   </section>
 </BaseLayout>
 
 <style>
-  section {
-    padding: 10rem 2rem;
-    min-height: 60vh;
+  .not-found {
+    min-height: 100dvh;
     display: flex;
     align-items: center;
-  }
-
-  .inner {
-    max-width: 600px;
-    margin: 0 auto;
+    padding-block: 7rem 5rem;
   }
 
   .code {
-    font-family: var(--font-mono), monospace;
-    font-size: 0.75rem;
-    letter-spacing: 0.15em;
-    color: var(--accent);
-    text-transform: uppercase;
-    display: block;
-    margin-bottom: 1rem;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(6rem, 22vw, 14rem);
+    line-height: .85;
+    letter-spacing: -.06em;
+    color: var(--accent-soft);
   }
 
   h1 {
-    font-family: var(--font-serif), serif;
-    font-size: clamp(2rem, 5vw, 3.5rem);
-    margin-bottom: 1rem;
-    letter-spacing: -0.01em;
+    margin-block: 1.5rem 1rem;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(2rem, 5vw, 3.25rem);
+    line-height: 1.05;
+    letter-spacing: -.035em;
   }
 
-  p {
+  .lead {
+    max-width: 40ch;
+    margin-bottom: 2.25rem;
+    font-size: 1.0625rem;
     color: var(--ink-soft);
-    font-size: 0.95rem;
-    margin-bottom: 2.5rem;
-  }
-
-  .back-link {
-    font-size: 0.8rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--ink);
-    text-decoration: none;
-    border-bottom: 1px solid var(--line);
-    padding-bottom: 2px;
-    transition: border-color 0.2s, color 0.2s;
-  }
-
-  .back-link:hover {
-    color: var(--accent);
-    border-color: var(--accent);
   }
 </style>

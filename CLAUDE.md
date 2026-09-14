@@ -29,10 +29,14 @@ Single-page personal portfolio. All content is statically generated via Astro.
 **Styling:**
 - Tailwind CSS v4 via the `@tailwindcss/vite` plugin registered in `astro.config.mjs` (no `@astrojs/tailwind`, no PostCSS config). `global.css` does `@import 'tailwindcss'` and loads the legacy JS config with `@config '../../tailwind.config.mjs'`.
 - Design tokens defined as CSS custom properties in `src/styles/global.css` and mapped to Tailwind color/font utilities in `tailwind.config.mjs`. Always use semantic tokens (`bg`, `ink`, `ink-soft`, `accent`, `line`, `white`) instead of raw Tailwind colors.
-- Animations (`fadeUp`, `scrollPulse`) and the `.reveal` / `.reveal.visible` pattern are defined in `global.css`. The reveal-on-scroll IntersectionObserver is bootstrapped in `BaseLayout.astro`'s inline `<script>`.
+- Light theme only (cool neutrals + single rust accent). Fonts: Bricolage Grotesque (display), Geist (body), Geist Mono (data), self-hosted with the Astro Fonts API: families declared in `astro.config.mjs` (`--font-bricolage`, `--font-geist`, `--font-geist-mono`), emitted by `<Font />` in `BaseLayout.astro`, and aliased to `--font-display` / `--font-sans` / `--font-mono` in `theme.css`.
+- Shared primitives in `global.css`: `.container`, `.section`, `.section-title`, `.sr-only`, `.skip-link`, grain overlay on `body::after`.
+- Animations: `fadeUp` + `.intro` (hero load-in, stagger via inline `--i`), and the `.reveal` / `.reveal.visible` pattern, all disabled under `prefers-reduced-motion`. The reveal-on-scroll IntersectionObserver is bootstrapped in `BaseLayout.astro`'s inline `<script>`.
+- No `window` scroll listeners: nav state and active-link highlighting use IntersectionObserver.
 
 **Layout:**
-- `BaseLayout.astro` wraps every page. It accepts `title`, `description`, and optional `canonicalUrl` props and handles all `<head>` SEO/OG tags and Google Fonts loading.
+- `BaseLayout.astro` wraps every page. It accepts `title`, `description`, optional `canonicalUrl` and `noindex` props (`noindex` emits `robots: noindex` instead of a canonical, used by `404.astro`) and handles all `<head>` SEO/OG tags, JSON-LD (`WebSite` + `Person`) and font loading.
+- Favicon PNG fallbacks (`favicon-48.png`, `apple-touch-icon.png`) are generated from `public/favicon.svg` with `pnpm icons`.
 - Nav scroll behavior is handled by an inline `<script>` inside `Header.astro`.
 
 ## Key conventions

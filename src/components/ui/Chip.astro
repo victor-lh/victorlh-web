@@ -1,26 +1,24 @@
 ---
 interface Props {
   label: string;
-  variant?: 'default' | 'blue';
 }
 
-const { label, variant = 'default' } = Astro.props;
+const { label } = Astro.props;
 ---
 
-<span class:list={['chip', variant === 'blue' && 'chip--blue']}>{label}</span>
+<span class="chip">{label}</span>
 
 <style>
   .chip {
-    font-family: var(--font-mono);
-    font-size: .65rem;
-    letter-spacing: .1em;
-    padding: .3rem .8rem;
-    border: 1px solid var(--accent);
-    color: var(--accent);
     display: inline-block;
-  }
-  .chip--blue {
-    border-color: #4a9eff;
-    color: #4a9eff;
+    padding: .4rem .65rem;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    background: var(--white);
+    font-family: var(--font-mono);
+    font-size: .78rem;
+    line-height: 1.2;
+    color: var(--ink);
+    white-space: nowrap;
   }
 </style>

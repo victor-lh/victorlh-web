@@ -1,6 +1,6 @@
 /*
  * ============================================================
- *  TEMA — fuente única de verdad para tokens visuales
+ *  TEMA - fuente única de verdad para tokens visuales
  *  Para iterar el diseño, solo toca este fichero.
  * ============================================================ */
 
@@ -8,55 +8,78 @@
 
   /* ----------------------------------------------------------
    *  PALETA BRUTA
+   *  Neutros fríos + un único acento óxido (AA sobre --bg).
    * ---------------------------------------------------------- */
 
-  --palette-neutral-0:   #FFFFFF;
-  --palette-neutral-50:  #F8F7F5;
-  --palette-neutral-100: #E5E3DF;
-  --palette-neutral-500: #888785;
-  --palette-neutral-900: #111110;
-  --palette-accent:      #1A56FF;
+  --palette-neutral-0:   #FBFBFC;
+  --palette-neutral-50:  #F1F2F4;
+  --palette-neutral-100: #E6E8EB;
+  --palette-neutral-200: #D6D9DE;
+  --palette-neutral-500: #585E68;
+  --palette-neutral-900: #14161A;
+  --palette-accent:      #B8431A;
+  --palette-accent-100:  #F3DED5;
 
 
   /* ----------------------------------------------------------
    *  TOKENS SEMÁNTICOS DE COLOR
    * ---------------------------------------------------------- */
 
-  --bg:       var(--palette-neutral-50);
-  --white:    var(--palette-neutral-0);
-  --line:     var(--palette-neutral-100);
-  --ink-soft: var(--palette-neutral-500);
-  --ink:      var(--palette-neutral-900);
-  --accent:   var(--palette-accent);
+  --bg:          var(--palette-neutral-50);
+  --white:       var(--palette-neutral-0);
+  --surface:     var(--palette-neutral-100);
+  --line:        var(--palette-neutral-200);
+  --ink-soft:    var(--palette-neutral-500);
+  --ink:         var(--palette-neutral-900);
+  --accent:      var(--palette-accent);
+  --accent-soft: var(--palette-accent-100);
 
 
   /* ----------------------------------------------------------
    *  TIPOGRAFÍA
    * ---------------------------------------------------------- */
 
-  --font-serif: 'Outfit', sans-serif;
-  --font-mono:  'Space Mono', monospace;
-  --font-sans:  'Outfit', sans-serif;
+  /* Familias autoalojadas: Astro Fonts (astro.config.mjs) define las variables de origen */
+  --font-display: var(--font-bricolage);
+  --font-sans:    var(--font-geist);
+  --font-mono:    var(--font-geist-mono);
 
   --text-base-weight: 400;
-  --leading-base:     1.7;
+  --leading-base:     1.6;
 
 
   /* ----------------------------------------------------------
    *  ESPACIADO Y FORMA
+   *  Regla de radios: chips 6px, paneles/tiles 20px, botones pill.
    * ---------------------------------------------------------- */
 
-  --radius-sm:   4px;
-  --radius-md:   8px;
+  --container-max:      1200px;
+  --gutter:             clamp(1.25rem, 4vw, 3rem);
+  --section-pad-top:    clamp(5rem, 10vw, 8rem);
+  --section-pad-bottom: clamp(5.5rem, 11vw, 9rem);
+
+  --radius-sm:   6px;
+  --radius-lg:   20px;
   --radius-full: 9999px;
+
+  --shadow-lift: 0 1px 2px rgb(20 22 26 / .04), 0 18px 40px -18px rgb(40 48 64 / .22);
+
+
+  /* ----------------------------------------------------------
+   *  CAPAS
+   * ---------------------------------------------------------- */
+
+  --z-nav:   20;
+  --z-grain: 30;
+  --z-skip:  40;
 
 
   /* ----------------------------------------------------------
    *  MOVIMIENTO
    * ---------------------------------------------------------- */
 
-  --ease-out:        cubic-bezier(0.22, 1, 0.36, 1);
-  --duration-reveal: .6s;
-  --duration-fade:   .7s;
+  --ease-out:        cubic-bezier(0.16, 1, 0.3, 1);
+  --duration-reveal: .8s;
+  --duration-fade:   .9s;
 
 }

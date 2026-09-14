@@ -1,127 +1,205 @@
 ---
-import { getCollection } from 'astro:content';
-import Badge from '../ui/Badge.astro';
+import { getCollection, type CollectionEntry } from 'astro:content';
 
 const entries = await getCollection('experience');
 const sorted = entries.sort((a, b) => a.data.order - b.data.order);
+
+// Consecutive roles at the same company are shown as one group
+const groups = sorted.reduce<{ company: string; roles: CollectionEntry<'experience'>[] }[]>(
+  (acc, entry) => {
+    const last = acc.at(-1);
+    if (last && last.company === entry.data.company) last.roles.push(entry);
+    else acc.push({ company: entry.data.company, roles: [entry] });
+    return acc;
+  },
+  [],
+);
+
+const splitPeriod = (period: string) => period.split(/\s*[—–]\s*/);
 ---
 
-<section id="experience">
-  <div class="inner">
-    <div class="section-header">
-      <span class="section-num">03</span>
-      <h2 class="section-title">Experiencia</h2>
-      <div class="section-line"></div>
+<section id="experience" class="section">
+  <div class="container exp-layout">
+    <div class="exp-heading">
+      <h2 class="section-title reveal">Experiencia</h2>
     </div>
 
-    <div class="exp-list">
-      {sorted.map((entry) => (
-        <div class="exp-item reveal">
-          <div class="exp-left">
-            <div class="exp-date">{entry.data.period}</div>
-            <Badge label={entry.data.company} />
-          </div>
-          <div>
-            <div class="exp-role">{entry.data.role}</div>
-            {entry.data.sector && (
-              <div class="exp-sector">{entry.data.sector}</div>
-            )}
-            <div class="exp-desc">{entry.data.description}</div>
-            <div class="exp-stack">
-              {entry.data.tags.map((tag) => (
-                <span class="tag">{tag}</span>
-              ))}
-            </div>
-          </div>
-        </div>
-      ))}
-    </div>
+    <ol class="exp-groups">
+      {
+        groups.map((group) => (
+          <li class="exp-group reveal">
+            <h3 class="exp-company">{group.company}</h3>
+
+            <ol class="exp-roles">
+              {group.roles.map((entry) => {
+                const [start, end] = splitPeriod(entry.data.period);
+                return (
+                  <li class:list={['exp-role', entry.data.current && 'is-current']}>
+                    <div class="exp-role-head">
+                      <h4 class="exp-title">{entry.data.role}</h4>
+                      <p class="exp-period">
+                        {start}
+                        {end && (
+                          <>
+                            {' - '}
+                            <span class="exp-period-end">{end}</span>
+                          </>
+                        )}
+                      </p>
+                    </div>
+                    {entry.data.sector && <p class="exp-sector">{entry.data.sector}</p>}
+                    <p class="exp-desc">{entry.data.description}</p>
+                    <ul class="exp-tags" aria-label="Tecnologías">
+                      {entry.data.tags.map((tag) => (
+                        <li>{tag}</li>
+                      ))}
+                    </ul>
+                  </li>
+                );
+              })}
+            </ol>
+          </li>
+        ))
+      }
+    </ol>
   </div>
 </section>
 
 <style>
-  #experience { background: var(--white); }
-
-  .inner { max-width: 1000px; margin: 0 auto; }
-
-  section { padding: 7rem 4rem; }
-
-  .section-header {
-    display: flex;
-    align-items: baseline;
-    gap: 1.5rem;
-    margin-bottom: 4rem;
-  }
-  .section-num {
-    font-family: var(--font-mono);
-    font-size: .7rem;
-    color: var(--accent);
-    letter-spacing: .15em;
-  }
-  .section-title {
-    font-family: var(--font-serif);
-    font-size: clamp(2rem, 4vw, 3rem);
-    letter-spacing: -.01em;
-  }
-  .section-line { flex: 1; height: 1px; background: var(--line); }
-
-  .exp-list { display: flex; flex-direction: column; }
-
-  .exp-item {
+  .exp-layout {
     display: grid;
-    grid-template-columns: 200px 1fr;
-    gap: 2.5rem;
-    padding: 2.8rem 0;
-    border-bottom: 1px solid var(--line);
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: 2rem;
   }
-  .exp-item:first-child { border-top: 1px solid var(--line); }
 
-  .exp-left {
+  .exp-heading {
+    grid-column: 1 / span 4;
+  }
+  .exp-heading .section-title {
+    position: sticky;
+    top: 6.5rem;
+  }
+
+  .exp-groups {
+    grid-column: 5 / -1;
+    list-style: none;
+  }
+
+  .exp-group {
+    padding-block: 2.5rem;
+    border-top: 1px solid var(--line);
+  }
+  .exp-group:first-child {
+    padding-top: .5rem;
+    border-top: 0;
+  }
+
+  .exp-company {
+    margin-bottom: 1.75rem;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(1.5rem, 2.5vw, 1.875rem);
+    line-height: 1.1;
+    letter-spacing: -.03em;
+  }
+
+  /* Timeline */
+  .exp-roles {
+    position: relative;
     display: flex;
     flex-direction: column;
-    gap: .4rem;
-    padding-top: .2rem;
+    gap: 2.5rem;
+    padding-left: 1.75rem;
+    list-style: none;
   }
-
-  .exp-date {
-    font-family: var(--font-mono);
-    font-size: .72rem;
-    color: var(--ink-soft);
+  .exp-roles::before {
+    content: '';
+    position: absolute;
+    left: 5px;
+    top: .6rem;
+    bottom: .6rem;
+    width: 1px;
+    background: var(--line);
   }
 
   .exp-role {
-    font-family: var(--font-serif);
-    font-size: 1.3rem;
-    margin-bottom: .2rem;
+    position: relative;
+  }
+  .exp-role::before {
+    content: '';
+    position: absolute;
+    left: calc(-1.75rem);
+    top: .45rem;
+    width: 11px;
+    height: 11px;
+    border: 1.5px solid var(--ink-soft);
+    border-radius: 50%;
+    background: var(--bg);
+  }
+  .exp-role.is-current::before {
+    border-color: var(--accent);
+    background: var(--accent);
+    box-shadow: 0 0 0 4px var(--accent-soft);
+  }
+
+  .exp-role-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: .25rem 1.5rem;
+  }
+
+  .exp-title {
+    font-weight: 600;
+    font-size: 1.125rem;
+    line-height: 1.35;
+  }
+
+  .exp-period {
+    font-family: var(--font-mono);
+    font-size: .8125rem;
+    color: var(--ink-soft);
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+  }
+  .is-current .exp-period-end {
+    color: var(--accent);
+    font-weight: 500;
   }
 
   .exp-sector {
-    font-size: .78rem;
-    color: var(--accent);
-    margin-bottom: .8rem;
-    letter-spacing: .04em;
+    margin-top: .2rem;
+    font-size: .9375rem;
+    color: var(--ink-soft);
   }
 
   .exp-desc {
-    font-size: .88rem;
-    color: var(--ink-soft);
-    max-width: 560px;
-    margin-bottom: 1rem;
+    max-width: 62ch;
+    margin-top: .9rem;
+    font-size: 1rem;
+    line-height: 1.65;
+    color: color-mix(in srgb, var(--ink) 82%, var(--bg));
   }
 
-  .exp-stack { display: flex; flex-wrap: wrap; gap: .35rem; }
-
-  .tag {
+  .exp-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .3rem 1rem;
+    margin-top: 1rem;
+    list-style: none;
     font-family: var(--font-mono);
-    font-size: .62rem;
-    letter-spacing: .06em;
-    padding: .28rem .65rem;
-    border: 1px solid var(--line);
+    font-size: .78rem;
     color: var(--ink-soft);
   }
 
-  @media (max-width: 768px) {
-    section { padding: 5rem 1.5rem; }
-    .exp-item { grid-template-columns: 1fr; gap: .5rem; }
+  @media (max-width: 900px) {
+    .exp-heading,
+    .exp-groups {
+      grid-column: 1 / -1;
+    }
+    .exp-heading .section-title {
+      position: static;
+    }
   }
 </style>

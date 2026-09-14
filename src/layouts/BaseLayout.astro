@@ -1,35 +1,65 @@
 ---
 import '../styles/global.css';
+import { Font, getImage } from 'astro:assets';
+import { getCollection } from 'astro:content';
 import Header from '../components/layout/Header.astro';
 import Footer from '../components/layout/Footer.astro';
+import avatar from '../assets/avatar.png';
 import { site } from '../data/site';
 
 interface Props {
   title: string;
   description: string;
   canonicalUrl?: string;
+  noindex?: boolean;
 }
 
-const {
-  title,
-  description,
-  canonicalUrl = Astro.url.href,
-} = Astro.props;
+const { title, description, canonicalUrl = Astro.url.href, noindex = false } = Astro.props;
 
-const jsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'Person',
-  name: site.fullName,
-  jobTitle: site.jobTitle,
-  url: site.url,
-  email: site.email,
-  sameAs: [site.linkedin, site.github],
-  address: {
-    '@type': 'PostalAddress',
-    addressLocality: site.location.city,
-    addressCountry: site.location.country,
+const ogImage = new URL('/og-image.png', Astro.site).href;
+const avatarImage = await getImage({ src: avatar, format: 'png', width: 400 });
+const currentJob = (await getCollection('experience')).find((entry) => entry.data.current);
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: site.fullName,
+    url: site.url,
+    inLanguage: 'es-ES',
   },
-};
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Person',
+    name: site.fullName,
+    jobTitle: site.jobTitle,
+    description:
+      'Backend Engineer especializado en microservicios, arquitecturas distribuidas y ecosistema Java/Spring.',
+    url: site.url,
+    image: new URL(avatarImage.src, Astro.site).href,
+    email: site.email,
+    sameAs: [site.linkedin, site.github],
+    knowsAbout: [
+      'Java',
+      'Spring Boot',
+      'Microservicios',
+      'Arquitecturas distribuidas',
+      'Event-Driven Architecture',
+      'Kubernetes',
+      'Google Cloud Platform',
+      'Kotlin',
+      'Node.js',
+    ],
+    ...(currentJob && {
+      worksFor: { '@type': 'Organization', name: currentJob.data.company },
+    }),
+    address: {
+      '@type': 'PostalAddress',
+      addressLocality: site.location.city,
+      addressCountry: site.location.country,
+    },
+  },
+];
 ---
 
 <!doctype html>
@@ -38,12 +68,14 @@ const jsonLd = {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="generator" content={Astro.generator} />
+    <meta name="color-scheme" content="light" />
+    <meta name="theme-color" content="#F1F2F4" />
 
     <!-- SEO -->
     <title>{title}</title>
     <meta name="description" content={description} />
     <meta name="author" content={site.fullName} />
-    <link rel="canonical" href={canonicalUrl} />
+    {noindex ? <meta name="robots" content="noindex" /> : <link rel="canonical" href={canonicalUrl} />}
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
@@ -52,7 +84,7 @@ const jsonLd = {
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonicalUrl} />
-    <meta property="og:image" content={new URL('/og-image.png', Astro.site).href} />
+    <meta property="og:image" content={ogImage} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
 
@@ -60,26 +92,31 @@ const jsonLd = {
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={new URL('/og-image.png', Astro.site).href} />
+    <meta name="twitter:image" content={ogImage} />
 
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="apple-touch-icon" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
 
     <!-- JSON-LD -->
     <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
 
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500&family=Space+Mono&display=swap"
-      rel="stylesheet"
-    />
+    <!-- Fonts (self-hosted via Astro Fonts; preload the above-the-fold families) -->
+    <Font cssVariable="--font-bricolage" preload />
+    <Font cssVariable="--font-geist" preload />
+    <Font cssVariable="--font-geist-mono" />
+
+    <noscript>
+      <style>
+        .reveal { opacity: 1; transform: none; }
+      </style>
+    </noscript>
   </head>
   <body>
+    <a href="#main" class="skip-link">Saltar al contenido</a>
     <Header />
-    <main>
+    <main id="main">
       <slot />
     </main>
     <Footer />
@@ -89,14 +126,14 @@ const jsonLd = {
       const reveals = document.querySelectorAll('.reveal');
       const obs = new IntersectionObserver(
         (entries) => {
-          entries.forEach((e, i) => {
-            if (e.isIntersecting) {
-              setTimeout(() => e.target.classList.add('visible'), i * 70);
+          entries
+            .filter((e) => e.isIntersecting)
+            .forEach((e, i) => {
+              setTimeout(() => e.target.classList.add('visible'), i * 80);
               obs.unobserve(e.target);
-            }
-          });
+            });
         },
-        { threshold: 0.08 },
+        { threshold: 0.12, rootMargin: '0px 0px -8% 0px' },
       );
       reveals.forEach((el) => obs.observe(el));
     </script>
